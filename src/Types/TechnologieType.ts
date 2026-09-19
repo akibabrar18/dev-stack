@@ -5,6 +5,6 @@ export default interface TechnologieType {
     category: string;
     icon: string;
     rating: number;
-    dificulty: string;
+    difficulty: string;
     badge: string;
 }

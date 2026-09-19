@@ -1,7 +1,7 @@
 import { Suspense, useState } from "react";
 import Nav from "./Components/Nav";
 import Banner from "./Components/Banner";
-import Technology from "./Components/Technology";
+import Technology from "./Components/Technologies";
 import type TechnologieType from "./Types/TechnologieType";
 
 const fetchTechnologies = async (): Promise<TechnologieType[]> => {
