@@ -5,6 +5,7 @@ import Technology from "./Components/Technologies";
 import type TechnologieType from "./Types/TechnologieType";
 import Footer from "./Components/Footer";
 import { toast } from "react-toastify";
+import LoadingSpinner from "./Components/LoadingSpinner";
 
 const fetchTechnologies = async (): Promise<TechnologieType[]> => {
   const res = await fetch("data.json");
@@ -36,15 +37,7 @@ function App() {
     <>
       <Nav></Nav>
       <Banner></Banner>
-      <Suspense
-        fallback={
-          <div className="flex h-screen w-full items-center justify-center">
-            <span className="bg-gradient-to-r from-[#FF5722] to-[#E91E63] bg-clip-text text-2xl font-bold text-transparent">
-              Loading...
-            </span>
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingSpinner></LoadingSpinner>}>
         <Technology
           technologiesPromise={technologiesPromise}
           selectedStack={selectedStack}
