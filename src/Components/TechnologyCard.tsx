@@ -3,9 +3,11 @@ import type TechnologieType from '../Types/TechnologieType';
 
 interface TechnologyCardProps {
   technology: TechnologieType;
+  isSelected: boolean;
+  onAdd: (tech: TechnologieType) => void;
 }
 
-const TechnologyCard = ({ technology}: TechnologyCardProps) => {
+const TechnologyCard = ({ technology, isSelected, onAdd }: TechnologyCardProps) => {
   return (
     <div className="bg-white rounded-[24px] p-6 border border-gray-100 shadow-[0_4px_24px_rgb(0,0,0,0.04)] w-full max-w-[340px] flex flex-col font-sans hover:shadow-lg transition-shadow duration-300">
       
@@ -44,10 +46,18 @@ const TechnologyCard = ({ technology}: TechnologyCardProps) => {
         </div>
       </div>
 
-      {/* Button*/}
-      <button className="w-full bg-[#0F172A] hover:bg-gray-800 text-white font-medium py-3.5 rounded-[14px] transition-colors">
-        Add to Stack
-      </button>
+      {isSelected ? (
+        <button disabled className="w-full bg-pink-50 text-pink-700 font-medium py-3.5 rounded-[14px] transition-colors flex items-center justify-center gap-2 cursor-not-allowed">
+          ✓ Added to Stack
+        </button>
+      ) : (
+        <button 
+          onClick={() => onAdd(technology)}
+          className="w-full bg-[#0F172A] hover:bg-gray-800 text-white font-medium py-3.5 rounded-[14px] transition-colors"
+        >
+          Add to Stack
+        </button>
+      )}
       
     </div>
   );

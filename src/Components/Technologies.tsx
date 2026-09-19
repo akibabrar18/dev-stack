@@ -3,11 +3,15 @@ import type TechnologieType from "../Types/TechnologieType";
 import TechnologyCard from "./TechnologyCard";
 import SelectedTechnologies from "./SelectedTechnologies";
 
-interface TechnologyProps {
+interface TechnologiesProps {
   technologiesPromise: Promise<TechnologieType[]>;
+  selectedStack: TechnologieType[];
+  onAdd: (tech: TechnologieType) => void;
+  onRemove: (name: string) => void;
+  onRemoveAll: () => void;
 }
 
-const Technology = ({ technologiesPromise }: TechnologyProps) => {
+const Technology = ({ technologiesPromise, selectedStack, onAdd, onRemove, onRemoveAll }: TechnologiesProps) => {
   const technologies = use(technologiesPromise);
 
   return (
@@ -27,13 +31,22 @@ const Technology = ({ technologiesPromise }: TechnologyProps) => {
       <div className="mt-10 grid grid-cols-1 lg:grid-cols-4 gap-10 lg:gap-6">
         <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 justify-items-center sm:justify-items-start">
           {technologies.map((tech) => (
-            <TechnologyCard key={tech.id} technology={tech} />
-          ))}
+          <TechnologyCard 
+            key={tech.name} 
+            technology={tech}
+            isSelected={selectedStack.some(t => t.name === tech.name)}
+            onAdd={onAdd}
+          />
+        ))}
         </div>
 
-        <div className="lg:col-span-1 order-last flex justify-center lg:justify-start">
-          <SelectedTechnologies />
-        </div>
+        <div className="lg:w-[340px] shrink-0 sticky top-4">
+        <SelectedTechnologies 
+          stack={selectedStack}
+          onRemove={onRemove}
+          onRemoveAll={onRemoveAll}
+        />
+      </div>
       </div>
     </div>
   );

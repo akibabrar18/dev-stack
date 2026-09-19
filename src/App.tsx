@@ -11,13 +11,35 @@ const fetchTechnologies = async (): Promise<TechnologieType[]> => {
   return data;
 };
 function App() {
-  const [technologiesPromise] = useState<Promise<TechnologieType[]>>(() => fetchTechnologies());
+  const [technologiesPromise] = useState<Promise<TechnologieType[]>>(() =>
+    fetchTechnologies(),
+  );
+  const [selectedStack, setSelectedStack] = useState<TechnologieType[]>([]);
+  const handleAddToStack = (technology: TechnologieType) => {
+    if (!selectedStack.find((item) => item.name === technology.name)) {
+      setSelectedStack([...selectedStack, technology]);
+    }
+  };
+  const handleRemoveFromStack = (technologyName: string) => {
+    setSelectedStack(
+      selectedStack.filter((item) => item.name !== technologyName),
+    );
+  };
+  const handleRemoveAll = () => {
+    setSelectedStack([]);
+  };
   return (
     <>
       <Nav></Nav>
       <Banner></Banner>
       <Suspense fallback={<div>Loading...</div>}>
-        <Technology technologiesPromise={technologiesPromise}></Technology>
+        <Technology
+          technologiesPromise={technologiesPromise}
+          selectedStack={selectedStack}
+          onAdd={handleAddToStack}
+          onRemove={handleRemoveFromStack}
+          onRemoveAll={handleRemoveAll}
+        ></Technology>
       </Suspense>
       <Footer></Footer>
     </>
