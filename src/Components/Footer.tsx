@@ -1,4 +1,3 @@
-import React from 'react';
 import { MdOutlineCopyright } from 'react-icons/md';
 import icon from '../assets/logo-text.png';
 

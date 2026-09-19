@@ -1,4 +1,3 @@
-import React from 'react';
 import type TechnologieType from '../Types/TechnologieType';
 
 interface SelectedTechnologiesProps {

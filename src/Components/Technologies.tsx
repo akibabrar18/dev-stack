@@ -1,4 +1,4 @@
-import React, { use } from "react";
+import  { use } from "react";
 import type TechnologieType from "../Types/TechnologieType";
 import TechnologyCard from "./TechnologyCard";
 import SelectedTechnologies from "./SelectedTechnologies";
