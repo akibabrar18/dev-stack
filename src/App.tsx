@@ -4,6 +4,7 @@ import Banner from "./Components/Banner";
 import Technology from "./Components/Technologies";
 import type TechnologieType from "./Types/TechnologieType";
 import Footer from "./Components/Footer";
+import { toast } from "react-toastify";
 
 const fetchTechnologies = async (): Promise<TechnologieType[]> => {
   const res = await fetch("data.json");
@@ -18,21 +19,32 @@ function App() {
   const handleAddToStack = (technology: TechnologieType) => {
     if (!selectedStack.find((item) => item.name === technology.name)) {
       setSelectedStack([...selectedStack, technology]);
+      toast.success(`${technology.name} added to your stack!`);
     }
   };
   const handleRemoveFromStack = (technologyName: string) => {
+    toast.error(`${technologyName} removed from your stack!`);
     setSelectedStack(
       selectedStack.filter((item) => item.name !== technologyName),
     );
   };
   const handleRemoveAll = () => {
     setSelectedStack([]);
+    toast.success("All technologies removed from your stack!");
   };
   return (
     <>
       <Nav></Nav>
       <Banner></Banner>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense
+        fallback={
+          <div className="flex h-screen w-full items-center justify-center">
+            <span className="bg-gradient-to-r from-[#FF5722] to-[#E91E63] bg-clip-text text-2xl font-bold text-transparent">
+              Loading...
+            </span>
+          </div>
+        }
+      >
         <Technology
           technologiesPromise={technologiesPromise}
           selectedStack={selectedStack}
